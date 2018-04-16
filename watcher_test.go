@@ -13,14 +13,20 @@ func updateCallback(rev string) {
 }
 
 func TestWatcher(t *testing.T) {
-	// updater represents the Casbin enforcer instance that changes the policy in DB.
-	updater := NewWatcher("localhost:2181", "/casbin")
 
 	// listener represents any other Casbin enforcer instance that watches the change of policy in DB.
 	listener := NewWatcher("localhost:2181", "/casbin")
 
 	// listener should set a callback that gets called when policy changes.
 	listener.SetUpdateCallback(updateCallback)
+
+	// Add delay before starting the updater so that
+	// the callback for the listener is guaranteed to be called
+	// as the listener is already running.
+	time.Sleep(time.Second)
+
+	// updater represents the Casbin enforcer instance that changes the policy in DB.
+	updater := NewWatcher("localhost:2181", "/casbin")
 
 	// updater changes the policy, and sends the notifications.
 	err := updater.Update()
@@ -33,7 +39,7 @@ func TestWatcher(t *testing.T) {
 	// You should see "[New revision detected: X]" in the log.
 
 	// Add delay so that the callbacks get called before the program exits.
-	time.Sleep(time.Second * 1)
+	time.Sleep(time.Second * 2)
 }
 
 func TestWithEnforcer(t *testing.T) {
