@@ -1,9 +1,13 @@
 language: go
 sudo: false
 go:
+  - 1.8
+  - 1.9
   - tip
 install:
   - go get -v github.com/golang/lint/golint
+  - go get -v github.com/casbin/casbin
+  - go get -v github.com/samuel/go-zookeeper
 script:
   - go vet ./...
   - $HOME/gopath/bin/golint .
