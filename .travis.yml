@@ -1,0 +1,11 @@
+language: go
+sudo: false
+go:
+  - 1.8.x
+  - 1.9.x
+  - master
+install:
+  - go get -v github.com/golang/lint/golint
+script:
+  - go vet ./...
+  - $HOME/gopath/bin/golint .

@@ -25,7 +25,7 @@ func finalizer(w *Watcher) {
 }
 
 // NewWatcher is the constructor for Watcher.
-// hosts is the comma-separated URLs to zookeeper hosts.
+// hosts can be either a single URL or a comma-separated list of URLs to zookeeper hosts.
 // path is the path which will be watched. If not provided, it defaults to "/casbin".
 func NewWatcher(hosts string, path ...string) persist.Watcher {
 	w := &Watcher{}
