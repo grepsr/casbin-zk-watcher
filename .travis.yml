@@ -7,7 +7,7 @@ go:
 install:
   - go get -v github.com/golang/lint/golint
   - go get -v github.com/casbin/casbin
-  - go get -v github.com/samuel/go-zookeeper
+  - go get -v github.com/samuel/go-zookeeper/zk
 script:
   - go vet ./...
   - $HOME/gopath/bin/golint .
