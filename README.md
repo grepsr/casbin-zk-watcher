@@ -1,4 +1,4 @@
-# counter
+# casbin-zk-watcher
 
 [![][travis-svg]][travis-url]
 [![][license-svg]][license-url]
