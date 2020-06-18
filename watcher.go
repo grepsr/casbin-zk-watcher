@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/casbin/casbin/persist"
-	"github.com/casbin/casbin/util"
 	"github.com/samuel/go-zookeeper/zk"
 )
 
@@ -77,15 +76,19 @@ func (w *Watcher) Update() error {
 	if err != nil {
 		return err
 	}
-	util.LogPrint("Get revision: ", rev)
 
 	rev++
 	newRev := strconv.Itoa(rev)
 
-	util.LogPrint("Set revision: ", newRev)
 	_, err = w.conn.Set(w.path, []byte(newRev), stat.Version)
 	return err
 
+}
+
+// Close closes the Watcher.
+func (w *Watcher) Close() {
+	w.conn.Close()
+	finalizer(w)
 }
 
 // startWatch is a goroutine that watches for policy changes.

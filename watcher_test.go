@@ -1,15 +1,15 @@
 package zkwatcher
 
 import (
+	"log"
 	"testing"
 	"time"
 
 	"github.com/casbin/casbin"
-	"github.com/casbin/casbin/util"
 )
 
 func updateCallback(rev string) {
-	util.LogPrint("New revision detected:", rev)
+	log.Print("New revision detected:", rev)
 }
 
 func TestWatcher(t *testing.T) {
@@ -47,7 +47,7 @@ func TestWithEnforcer(t *testing.T) {
 	w := NewWatcher("localhost:2181")
 
 	// Initialize the enforcer.
-	e := casbin.NewEnforcer("examples/rbac_model.conf", "examples/rbac_policy.csv")
+	e, _ := casbin.NewEnforcer("examples/rbac_model.conf", "examples/rbac_policy.csv")
 
 	// Set the watcher for the enforcer.
 	e.SetWatcher(w)
